@@ -16,5 +16,9 @@ describe 'opengrok::default' do
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
     end
+
+    it 'installs ctags' do
+      expect(chef_run).to install_package('ctags')
+    end
   end
 end
