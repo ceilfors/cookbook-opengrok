@@ -20,5 +20,9 @@ describe 'opengrok::default' do
     it 'installs ctags' do
       expect(chef_run).to install_package('ctags')
     end
+
+    it 'should include java recipe' do
+      expect(chef_run).to include_recipe('java')
+    end
   end
 end

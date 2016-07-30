@@ -1,9 +1,28 @@
 require 'spec_helper'
 
 describe 'cookbook-opengrok::default' do
-  # Serverspec examples can be found at
-  # http://serverspec.org/resource_types.html
-  it 'does something' do
-    skip 'Replace this with meaningful tests'
+
+  context command('printenv JAVA_HOME') do
+    its(:exit_status) { should eq 0 }
+  end
+
+  describe user('opengrok') do
+    it { should exist }
+  end
+
+  describe group('opengrok') do
+    it { should exist }
+  end
+
+  describe file('/opt/tomcat_opengrok_8_0_36/LICENSE') do
+    it { should be_file }
+    it { should be_owned_by 'opengrok' }
+    it { should be_grouped_into 'opengrok' }
+  end
+
+  describe service('tomcat_opengrok') do
+    it { pending 'implementation'; should be_installed }
+    it { pending 'implementation'; should be_enabled }
+    it { pending 'implementation'; should be_running }
   end
 end
