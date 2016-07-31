@@ -21,8 +21,7 @@ describe 'cookbook-opengrok::default' do
   end
 
   describe service('tomcat_opengrok') do
-    it { pending 'implementation'; should be_installed }
-    it { pending 'implementation'; should be_enabled }
-    it { pending 'implementation'; should be_running }
+    it { should be_enabled }
+    it { should be_running }
   end
 end

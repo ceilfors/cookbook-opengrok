@@ -14,3 +14,9 @@ tomcat_install 'opengrok' do
   tomcat_user 'opengrok'
   tomcat_group 'opengrok'
 end
+
+tomcat_service 'opengrok' do
+  action [:start, :enable]
+  tomcat_user 'opengrok'
+  tomcat_group 'opengrok'
+end
