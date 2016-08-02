@@ -24,4 +24,10 @@ describe 'cookbook-opengrok::default' do
     it { should be_enabled }
     it { should be_running }
   end
+
+  context file('/opt/opengrok/bin/Opengrok') do
+    it { pending 'implementation'; should be_file }
+    it { pending 'implementation'; should be_owned_by 'opengrok' }
+    it { pending 'implementation'; should be_grouped_into 'opengrok' }
+  end
 end
