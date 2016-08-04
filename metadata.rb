@@ -8,6 +8,10 @@ version '0.1.0'
 issues_url 'https://github.com/ceilfors/cookbook-opengrok/issues'
 source_url 'https://github.com/ceilfors/cookbook-opengrok'
 
+%w(centos).each do |os|
+  supports os
+end
+
 depends 'java', '~> 1.41.0'
 depends 'ark', '~> 1.2.0'
 depends 'tomcat', '~> 2.3.1'
