@@ -3,6 +3,17 @@
 # Recipe:: default
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
+ark 'opengrok' do
+  url node['opengrok']['download_url']
+  checksum node['opengrok']['checksum']
+  prefix_root '/opt'
+  prefix_home '/opt'
+  prefix_bin  '/opt/bin'
+  version node['opengrok']['version']
+  owner 'opengrok'
+  group 'opengrok'
+end
+
 include_recipe 'java'
 
 package 'ctags' do

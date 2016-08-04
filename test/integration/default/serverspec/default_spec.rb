@@ -14,7 +14,7 @@ describe 'cookbook-opengrok::default' do
     it { should exist }
   end
 
-  describe file('/opt/tomcat_opengrok_8_0_36/LICENSE') do
+  describe file('/opt/tomcat_opengrok/LICENSE') do
     it { should be_file }
     it { should be_owned_by 'opengrok' }
     it { should be_grouped_into 'opengrok' }
@@ -25,9 +25,9 @@ describe 'cookbook-opengrok::default' do
     it { should be_running }
   end
 
-  context file('/opt/opengrok/bin/Opengrok') do
-    it { pending 'implementation'; should be_file }
-    it { pending 'implementation'; should be_owned_by 'opengrok' }
-    it { pending 'implementation'; should be_grouped_into 'opengrok' }
+  context file('/opt/opengrok/bin/OpenGrok') do
+    it { should be_file }
+    it { should be_owned_by 'opengrok' }
+    it { should be_grouped_into 'opengrok' }
   end
 end

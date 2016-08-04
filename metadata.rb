@@ -9,4 +9,5 @@ issues_url 'https://github.com/ceilfors/cookbook-opengrok/issues'
 source_url 'https://github.com/ceilfors/cookbook-opengrok'
 
 depends 'java', '~> 1.41.0'
+depends 'ark', '~> 1.2.0'
 depends 'tomcat', '~> 2.3.1'
