@@ -3,6 +3,14 @@
 # Recipe:: default
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
+
+group node['opengrok']['group']
+user node['opengrok']['user'] do
+  group node['opengrok']['group']
+  system true
+  shell '/bin/bash'
+end
+
 ark 'opengrok' do
   url node['opengrok']['download_url']
   checksum node['opengrok']['checksum']
