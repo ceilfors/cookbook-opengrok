@@ -30,4 +30,9 @@ describe 'cookbook-opengrok::default' do
     it { should be_owned_by 'opengrok' }
     it { should be_grouped_into 'opengrok' }
   end
+
+  context file('/opt/tomcat_opengrok/webapps/source.war') do
+    it { pending 'impl'; should be_file }
+    it { pending 'impl'; should be_owned_by 'opengrok' }
+  end
 end
