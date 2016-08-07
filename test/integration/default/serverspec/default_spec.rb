@@ -32,7 +32,7 @@ describe 'cookbook-opengrok::default' do
   end
 
   context file('/opt/tomcat_opengrok/webapps/source.war') do
-    it { pending 'impl'; should be_file }
-    it { pending 'impl'; should be_owned_by 'opengrok' }
+    it { should be_file }
+    it { should be_owned_by 'opengrok' }
   end
 end

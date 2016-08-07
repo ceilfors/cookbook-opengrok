@@ -39,3 +39,8 @@ tomcat_service 'opengrok' do
   tomcat_user node['opengrok']['user']
   tomcat_group node['opengrok']['group']
 end
+
+execute 'deploy opengrok' do
+  command '/opt/opengrok/bin/OpenGrok deploy'
+  environment OPENGROK_TOMCAT_BASE: '/opt/tomcat_opengrok'
+end
