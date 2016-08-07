@@ -8,7 +8,7 @@ group node['opengrok']['group']
 user node['opengrok']['user'] do
   group node['opengrok']['group']
   system true
-  shell '/bin/bash'
+  shell '/bin/nologin'
 end
 
 ark 'opengrok' do
