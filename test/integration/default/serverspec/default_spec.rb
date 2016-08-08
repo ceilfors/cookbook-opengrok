@@ -35,4 +35,18 @@ describe 'cookbook-opengrok::default' do
     it { should be_file }
     it { should be_owned_by 'opengrok' }
   end
+
+  context file('/var/opengrok/src') do
+    it { pending; should be_directory }
+    it { pending; should be_owned_by 'opengrok' }
+  end
+
+  context file('/var/opengrok/etc/configuration.xml') do
+    it { pending; should be_file }
+    it { pending; should be_owned_by 'opengrok' }
+  end
+
+  context command('git --version') do
+    its(:exit_status) { pending; should eq 0}
+  end
 end
