@@ -40,14 +40,21 @@ describe 'cookbook-opengrok::default' do
     its(:stdout) { should match %r(<title>Search</title>) }
   end
 
-  context file('/var/opengrok/src') do
-    it { pending; should be_directory }
-    it { pending; should be_owned_by 'opengrok' }
+  %w(src data etc log).each do |dir|
+    context file("/var/opengrok/#{dir}") do
+      it { should be_directory }
+      it { should be_owned_by 'opengrok' }
+    end
   end
 
   context file('/var/opengrok/etc/configuration.xml') do
-    it { pending; should be_file }
-    it { pending; should be_owned_by 'opengrok' }
+    it { should be_file }
+    it { should be_owned_by 'opengrok' }
+  end
+
+  context file('/var/opengrok/logging.properties') do
+    it { should be_file }
+    it { should be_owned_by 'opengrok' }
   end
 
   context command('git --version') do

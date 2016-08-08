@@ -11,7 +11,6 @@ user node['opengrok']['user'] do
   shell '/bin/nologin'
 end
 
-# Not idempotent! When URL is changed for upgrade, this will not run
 ark 'opengrok' do
   url node['opengrok']['download_url']
   checksum node['opengrok']['checksum']
@@ -43,6 +42,28 @@ tomcat_service 'opengrok' do
 end
 
 execute 'deploy war' do
-  command 'cp /opt/opengrok/lib/source.war /opt/tomcat_opengrok/webapps'
+  command 'cp -p /opt/opengrok/lib/source.war /opt/tomcat_opengrok/webapps'
   action :nothing
+end
+
+%w(src data etc log).each do |dir|
+  directory "/var/opengrok/#{dir}" do
+    owner node['opengrok']['user']
+    group node['opengrok']['group']
+    recursive true
+  end
+end
+
+# TODO: Need to configure OpenGrok web.xml to point to this file when we configure web.xml
+template '/var/opengrok/etc/configuration.xml' do
+  source 'configuration.xml.erb'
+  owner node['opengrok']['user']
+  group node['opengrok']['group']
+end
+
+# TODO: Who is pointing to this logging.properties file?
+template '/var/opengrok/logging.properties' do
+  source 'logging.properties.erb'
+  owner node['opengrok']['user']
+  group node['opengrok']['group']
 end

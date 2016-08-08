@@ -1,0 +1,36 @@
+<java version="1.8.0_91" class="java.beans.XMLDecoder">
+ <object class="org.opensolaris.opengrok.configuration.Configuration">
+  <void property="allowLeadingWildcard">
+   <boolean>true</boolean>
+  </void>
+  <void property="cmds">
+   <object class="java.util.Collections" method="unmodifiableMap">
+    <object class="java.util.HashMap">
+     <void method="put">
+      <string>org.opensolaris.opengrok.history.ClearCaseRepository</string>
+      <string>cleartool</string>
+     </void>
+     <void method="put">
+      <string>org.opensolaris.opengrok.history.PerforceRepository</string>
+      <string>p4</string>
+     </void>
+    </object>
+   </object>
+  </void>
+  <void property="ctags">
+   <string>/bin/ctags</string>
+  </void>
+  <void property="dataRoot">
+   <string>/var/opengrok/data</string>
+  </void>
+  <void property="remoteScmSupported">
+   <object class="java.lang.Enum" method="valueOf">
+    <class>org.opensolaris.opengrok.configuration.Configuration$RemoteSCM</class>
+    <string>ON</string>
+   </object>
+  </void>
+  <void property="sourceRoot">
+   <string>/var/opengrok/src</string>
+  </void>
+ </object>
+</java>
