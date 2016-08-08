@@ -36,6 +36,10 @@ describe 'cookbook-opengrok::default' do
     it { should be_owned_by 'opengrok' }
   end
 
+  context command('curl http://localhost:8080/source/') do
+    its(:stdout) { should match %r(<title>Search</title>) }
+  end
+
   context file('/var/opengrok/src') do
     it { pending; should be_directory }
     it { pending; should be_owned_by 'opengrok' }
