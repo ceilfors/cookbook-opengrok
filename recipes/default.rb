@@ -11,6 +11,7 @@ user node['opengrok']['user'] do
   shell '/bin/nologin'
 end
 
+# Not idempotent! When URL is changed for upgrade, this will not run
 ark 'opengrok' do
   url node['opengrok']['download_url']
   checksum node['opengrok']['checksum']
@@ -20,6 +21,7 @@ ark 'opengrok' do
   version node['opengrok']['version']
   owner node['opengrok']['user']
   group node['opengrok']['group']
+  notifies :run, 'execute[deploy war]'
 end
 
 include_recipe 'java'
@@ -40,7 +42,7 @@ tomcat_service 'opengrok' do
   tomcat_group node['opengrok']['group']
 end
 
-execute 'deploy opengrok' do
-  command '/opt/opengrok/bin/OpenGrok deploy'
-  environment OPENGROK_TOMCAT_BASE: '/opt/tomcat_opengrok'
+execute 'deploy war' do
+  command 'cp /opt/opengrok/lib/source.war /opt/tomcat_opengrok/webapps'
+  action :nothing
 end
