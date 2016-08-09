@@ -14,6 +14,11 @@ platforms:
       image: centos:7
       privileged: true
       run_command: /usr/sbin/init
+
+# Can't make the below configuration to work. Docker containers can't talk to port 55555.
+# The article found in https://www.safaribooksonline.com/blog/2015/06/04/super-charged-chef-cookbook-development/
+# has also been tried but not working. Kitchen docker will try to install curl before docker links are
+# established. Hence "squid" hostname won't be able to be resolved.
 #      http_proxy: http://10.0.10.20:55555
 #      https_proxy: http://10.0.10.20:55555
 #      provision_command:
