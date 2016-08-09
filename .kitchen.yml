@@ -1,14 +1,24 @@
 ---
 driver:
-  name: vagrant
-  network:
-  - ['private_network', {type: 'dhcp'}]
+  name: docker
+  use_sudo: false
+  require_chef_omnibus: true
 
 provisioner:
   name: chef_zero
 
 platforms:
-  - name: centos-7.2
+  - name: centos-7
+    driver_config:
+      use_sudo: false
+      image: centos:7
+      privileged: true
+      run_command: /usr/sbin/init
+#      http_proxy: http://10.0.10.20:55555
+#      https_proxy: http://10.0.10.20:55555
+#      provision_command:
+#        - env http_proxy=http://10.0.10.20:55555 bash -c 'curl -L http://www.chef.io/chef/install.sh | bash'
+
 
 suites:
   - name: default
