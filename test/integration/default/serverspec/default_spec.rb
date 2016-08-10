@@ -57,6 +57,10 @@ describe 'cookbook-opengrok::default' do
     it { should be_owned_by 'opengrok' }
   end
 
+  describe cron do
+    it { pending; should have_entry('0 2 * * * /var/opengrok/index.sh >> /var/opengrok/log/cronlog').with_user('opengrok') }
+  end
+
   context command('git --version') do
     its(:exit_status) { pending; should eq 0}
   end
