@@ -59,6 +59,10 @@ template '/var/opengrok/etc/configuration.xml' do
   source 'configuration.xml.erb'
   owner node['opengrok']['user']
   group node['opengrok']['group']
+  variables({
+    data_root: node['opengrok']['data_root'],
+    src_root: node['opengrok']['src_root']
+  })
 end
 
 # TODO: Who is pointing to this logging.properties file?

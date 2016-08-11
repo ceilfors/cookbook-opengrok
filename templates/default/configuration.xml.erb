@@ -21,7 +21,7 @@
    <string>/bin/ctags</string>
   </void>
   <void property="dataRoot">
-   <string>/var/opengrok/data</string>
+   <string><% @data_root %></string>
   </void>
   <void property="remoteScmSupported">
    <object class="java.lang.Enum" method="valueOf">
@@ -30,7 +30,7 @@
    </object>
   </void>
   <void property="sourceRoot">
-   <string>/var/opengrok/src</string>
+   <string><% @src_root %></string>
   </void>
  </object>
 </java>
