@@ -8,5 +8,5 @@ default['opengrok']['checksum'] = 'c3ce079f6ed1526c475cb4b9a7aa901f75507318c93b4
 default['opengrok']['version'] = '0.12.1.5'
 default['opengrok']['user'] = 'opengrok'
 default['opengrok']['group'] = 'opengrok'
-default['opengrok']['data_root'] = '/var/opengrok/data'
-default['opengrok']['src_root'] = '/var/opengrok/src'
+default['opengrok']['home'] = '/var/opengrok'
+

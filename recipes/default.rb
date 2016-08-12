@@ -47,7 +47,7 @@ execute 'deploy war' do
 end
 
 %w(src data etc log).each do |dir|
-  directory "/var/opengrok/#{dir}" do
+  directory File.join(node['opengrok']['home'], dir) do
     owner node['opengrok']['user']
     group node['opengrok']['group']
     recursive true
@@ -55,13 +55,13 @@ end
 end
 
 # TODO: Need to configure OpenGrok web.xml to point to this file when we configure web.xml
-template '/var/opengrok/etc/configuration.xml' do
+template File.join(node['opengrok']['home'], 'etc/configuration.xml') do
   source 'configuration.xml.erb'
   owner node['opengrok']['user']
   group node['opengrok']['group']
   variables({
-    data_root: node['opengrok']['data_root'],
-    src_root: node['opengrok']['src_root']
+    data_root: File.join(node['opengrok']['home'], 'data'),
+    src_root: File.join(node['opengrok']['home'], 'src')
   })
 end
 
