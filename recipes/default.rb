@@ -66,7 +66,7 @@ template File.join(node['opengrok']['home'], 'etc/configuration.xml') do
 end
 
 # TODO: Who is pointing to this logging.properties file?
-template '/var/opengrok/logging.properties' do
+template File.join(node['opengrok']['home'], 'logging.properties') do
   source 'logging.properties.erb'
   owner node['opengrok']['user']
   group node['opengrok']['group']

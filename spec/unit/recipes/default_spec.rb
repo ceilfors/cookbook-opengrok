@@ -46,10 +46,7 @@ describe 'opengrok::default' do
     end
 
     it 'creates logging.properties file' do
-      pending('implementation')
-      file = '/opengrok/home/logging.properties'
-      expect(chef_run).to create_template(file)
-      expect(chef_run).to render_file(file).with_content(%r(opengrok/home/log/.*\.log))
+      expect(chef_run).to create_template('/opengrok/home/logging.properties')
     end
 
     it 'creates index.sh file' do
