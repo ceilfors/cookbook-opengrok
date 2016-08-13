@@ -8,7 +8,7 @@ require 'spec_helper'
 
 describe 'opengrok::default' do
   context 'When all attributes are default, on centos' do
-    let(:chef_run) do
+    cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new(platform: 'centos', version: '7.2.1511') do |node|
         node.set['opengrok']['home'] = '/opengrok/home'
         node.set['opengrok']['index']['extra_opts'] = '-blah'
