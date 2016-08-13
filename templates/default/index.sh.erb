@@ -1,0 +1,7 @@
+/usr/bin/java \
+    -Xmx2048m \
+    -Djava.util.logging.config.file=/var/opengrok/logging.properties \
+    -jar /opt/opengrok/lib/opengrok.jar \
+    -R /var/opengrok/etc/configuration.xml \
+    -U localhost:2424 \
+    -S -P -H

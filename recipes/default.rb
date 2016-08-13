@@ -71,3 +71,9 @@ template File.join(node['opengrok']['home'], 'logging.properties') do
   owner node['opengrok']['user']
   group node['opengrok']['group']
 end
+
+template File.join(node['opengrok']['home'], 'index.sh') do
+  source 'index.sh.erb'
+  owner node['opengrok']['user']
+  group node['opengrok']['group']
+end

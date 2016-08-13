@@ -11,8 +11,6 @@ describe 'opengrok::default' do
     cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new(platform: 'centos', version: '7.2.1511') do |node|
         node.set['opengrok']['home'] = '/opengrok/home'
-        node.set['opengrok']['index']['extra_opts'] = '-blah'
-        node.set['opengrok']['index']['java_opts'] = '-Xmx1024m'
       end
       runner.converge(described_recipe)
     end
@@ -50,12 +48,7 @@ describe 'opengrok::default' do
     end
 
     it 'creates index.sh file' do
-      pending('implementation')
-      file = '/opengrok/home/index.sh'
-      expect(chef_run).to create_template(file)
-      expect(chef_run).to render_file(file).with_content(%r(-R /opengrok/home/etc/configuration.xml))
-      expect(chef_run).to render_file(file).with_content(%r(-Xmx1024m))
-      expect(chef_run).to render_file(file).with_content(%r(-blah))
+      expect(chef_run).to create_template('/opengrok/home/index.sh')
     end
   end
 end
