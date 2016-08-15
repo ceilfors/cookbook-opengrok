@@ -9,8 +9,8 @@ opengrok_install 'opengrok' do
   download_checksum node['opengrok']['checksum']
   install_path '/opt'
   version node['opengrok']['version']
-  user node['opengrok']['user']
-  group node['opengrok']['group']
+  opengrok_user node['opengrok']['user']
+  opengrok_group node['opengrok']['group']
 end
 
 %w(src data etc log).each do |dir|

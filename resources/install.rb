@@ -2,8 +2,8 @@ property :download_url, String
 property :download_checksum, String
 property :install_path, String
 property :version, String
-property :user, String
-property :group, String
+property :opengrok_user, String
+property :opengrok_group, String
 
 default_action :install
 
@@ -11,9 +11,9 @@ action :install do
 
   include_recipe 'java'
 
-  group new_resource.group
-  user new_resource.user do
-    group new_resource.group
+  group opengrok_group
+  user opengrok_user do
+    group opengrok_group
     system true
     shell '/bin/nologin'
   end
@@ -25,8 +25,8 @@ action :install do
     prefix_home install_path
     prefix_bin ::File.join(install_path, 'bin')
     version new_resource.version
-    owner new_resource.user
-    group new_resource.group
+    owner opengrok_user
+    group opengrok_group
     notifies :run, 'execute[deploy opengrok war]'
   end
 
@@ -36,16 +36,14 @@ action :install do
 
   tomcat_install 'opengrok' do
     tarball_uri 'http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.36/bin/apache-tomcat-8.0.36.tar.gz'
-    install_path ::File.join(new_resource.install_path, 'tomcat_opengrok')
-    tomcat_user new_resource.user
-    tomcat_group new_resource.group
+    tomcat_user opengrok_user
+    tomcat_group opengrok_group
   end
 
   tomcat_service 'opengrok' do
     action [:start, :enable]
-    install_path ::File.join(new_resource.install_path, 'tomcat_opengrok')
-    tomcat_user new_resource.user
-    tomcat_group new_resource.group
+    tomcat_user opengrok_user
+    tomcat_group opengrok_group
   end
 
   copy_source = ::File.join(install_path, 'opengrok', 'lib', 'source.war')
