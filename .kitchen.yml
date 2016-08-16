@@ -10,8 +10,15 @@ provisioner:
 platforms:
   - name: centos-7.2
 
+verifier:
+  name: inspec
+
 suites:
   - name: default
     run_list:
       - recipe[opengrok::default]
     attributes:
+  - name: override_properties
+    run_list:
+      - recipe[opengrok_test::override_properties]
+
