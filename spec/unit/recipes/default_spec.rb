@@ -9,7 +9,8 @@ require 'spec_helper'
 describe 'opengrok::default' do
   context 'When all attributes are default, on centos' do
     cached(:chef_run) do
-      runner = ChefSpec::ServerRunner.new(platform: 'centos', version: '7.2.1511', step_into: ['opengrok_install']) do |node|
+      runner = ChefSpec::ServerRunner.new(platform: 'centos', version: '7.2.1511',
+                                          step_into: %w(opengrok_install opengrok_configuration)) do |node|
         node.set['opengrok']['home'] = '/opengrok/home'
       end
       runner.converge(described_recipe)
