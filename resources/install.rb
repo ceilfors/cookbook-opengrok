@@ -47,7 +47,8 @@ action :install do
   end
 
   copy_source = ::File.join(install_path, 'opengrok', 'lib', 'source.war')
-  copy_target = ::File.join(install_path, 'tomcat_opengrok', 'webapps')
+  # Tomcat symlink is hardcoded in tomcat cookbook
+  copy_target = ::File.join('/opt/tomcat_opengrok', 'webapps')
 
   execute 'deploy opengrok war' do
     command "cp -p #{copy_source} #{copy_target}"
