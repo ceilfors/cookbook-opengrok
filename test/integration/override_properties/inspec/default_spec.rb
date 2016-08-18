@@ -35,3 +35,20 @@ end
 describe command('curl http://localhost:8080/source/') do
   its(:stdout) { should match %r(<title>Search</title>) }
 end
+
+%w(src data etc log).each do |dir|
+  describe file("/var/custom/opengrok/#{dir}") do
+    it { should be_directory }
+    it { should be_owned_by 'custom_user' }
+  end
+end
+
+describe file('/var/custom/opengrok/etc/configuration.xml') do
+  it { should be_file }
+  it { should be_owned_by 'custom_user' }
+end
+
+describe file('/var/custom/opengrok/logging.properties') do
+  it { should be_file }
+  it { should be_owned_by 'custom_user' }
+end

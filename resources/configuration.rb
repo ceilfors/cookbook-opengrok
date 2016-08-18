@@ -16,6 +16,7 @@ action :manage do
 # TODO: Need to configure OpenGrok web.xml to point to this file when we configure web.xml
   template ::File.join(home_path, 'etc/configuration.xml') do
     source 'configuration.xml.erb'
+    cookbook 'opengrok'
     owner opengrok_user
     group opengrok_group
     variables({
@@ -27,12 +28,14 @@ action :manage do
 # TODO: Who is pointing to this logging.properties file?
   template ::File.join(home_path, 'logging.properties') do
     source 'logging.properties.erb'
+    cookbook 'opengrok'
     owner opengrok_user
     group opengrok_group
   end
 
   template ::File.join(home_path, 'index.sh') do
     source 'index.sh.erb'
+    cookbook 'opengrok'
     owner opengrok_user
     group opengrok_group
   end

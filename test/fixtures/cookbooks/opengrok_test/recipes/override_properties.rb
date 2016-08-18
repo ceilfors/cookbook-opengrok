@@ -6,3 +6,8 @@ opengrok_install 'opengrok' do
   opengrok_user 'custom_user'
   opengrok_group 'custom_group'
 end
+
+opengrok_configuration '/var/custom/opengrok' do
+  opengrok_user 'custom_user'
+  opengrok_group 'custom_group'
+end
