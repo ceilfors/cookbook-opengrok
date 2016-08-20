@@ -10,9 +10,6 @@ provisioner:
 platforms:
   - name: centos-7.2
 
-verifier:
-  name: inspec
-
 suites:
   - name: default
     run_list:
