@@ -11,3 +11,13 @@ opengrok_configuration '/var/custom/opengrok' do
   opengrok_user 'custom_user'
   opengrok_group 'custom_group'
 end
+
+opengrok_cron_indexer '/var/custom/opengrok' do
+  opengrok_user 'custom_user'
+  opengrok_group 'custom_group'
+  install_path '/opt/custom'
+  java_opts '-Xmx4096m'
+  extra_opts '-Custom'
+  cron_minute '10'
+  cron_hour '10'
+end

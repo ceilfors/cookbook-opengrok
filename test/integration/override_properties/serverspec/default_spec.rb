@@ -57,4 +57,21 @@ describe 'opengrok overridden properties' do
     it { should be_owned_by 'custom_user' }
   end
 
+  describe file('/var/custom/opengrok/index.sh') do
+    it { should be_file }
+    it { should be_owned_by 'custom_user' }
+    it { should be_grouped_into 'custom_group' }
+    its(:content) {
+      should match /-Xmx4096m/
+      should match %r(-Djava.util.logging.config.file=/var/custom/opengrok/logging.properties)
+      should match %r(-jar /opt/custom/opengrok/lib/opengrok.jar)
+      should match %r(-R /var/custom/opengrok/etc/configuration.xml)
+      should match /-Custom/
+    }
+  end
+
+  describe cron do
+    it { should have_entry '10 10 * * * /var/custom/opengrok/index.sh' }
+  end
+
 end
