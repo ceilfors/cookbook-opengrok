@@ -25,7 +25,6 @@ action :manage do
               })
   end
 
-# TODO: Who is pointing to this logging.properties file?
   template ::File.join(home_path, 'logging.properties') do
     source 'logging.properties.erb'
     cookbook 'opengrok'
