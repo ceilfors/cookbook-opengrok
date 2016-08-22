@@ -24,6 +24,7 @@ action :create do
       opengrok_jar_path: ::File.join(install_path, 'opengrok', 'lib', 'opengrok.jar'),
       opengrok_configuration_path: ::File.join(home_path, 'etc', 'configuration.xml')
     })
+    mode '0775'
   end
 
   cron 'opengrok cron indexer' do

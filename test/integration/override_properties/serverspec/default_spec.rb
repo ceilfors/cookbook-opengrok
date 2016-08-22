@@ -62,6 +62,7 @@ describe 'opengrok overridden properties' do
     it { should be_file }
     it { should be_owned_by 'custom_user' }
     it { should be_grouped_into 'custom_group' }
+    it { should be_executable }
     its(:content) {
       should match /-Xmx4096m/
       should match %r(-Djava.util.logging.config.file=/var/custom/opengrok/logging.properties)
