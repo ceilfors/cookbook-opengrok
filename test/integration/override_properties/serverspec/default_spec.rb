@@ -68,7 +68,7 @@ describe 'opengrok overridden properties' do
       should match %r(-Djava.util.logging.config.file=/var/custom/opengrok/logging.properties)
       should match %r(-jar /opt/custom/opengrok/lib/opengrok.jar)
       should match %r(-R /var/custom/opengrok/etc/configuration.xml)
-      should match /-Custom/
+      should match /-P -H/
     }
   end
 
