@@ -30,6 +30,9 @@ action :manage do
     cookbook 'opengrok'
     owner opengrok_user
     group opengrok_group
+    variables ({
+      logging_pattern: ::File.join(home_path, 'log', 'opengrok%g.%u.log')
+    })
   end
 
   template ::File.join(home_path, 'index.sh') do

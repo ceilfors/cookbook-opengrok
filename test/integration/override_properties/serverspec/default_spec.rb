@@ -55,6 +55,7 @@ describe 'opengrok overridden properties' do
   describe file('/var/custom/opengrok/logging.properties') do
     it { should be_file }
     it { should be_owned_by 'custom_user' }
+    its(:content) { should match %r(FileHandler\.pattern = /var/custom/opengrok/log/.*) }
   end
 
   describe file('/var/custom/opengrok/index.sh') do

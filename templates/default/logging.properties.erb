@@ -59,4 +59,4 @@ java.util.logging.ConsoleHandler.formatter = org.opensolaris.opengrok.SimpleCons
 # messages:
 #com.xyz.foo.level = SEVERE
 #java.util.logging.FileHandler.pattern = %hjava%u.log
-java.util.logging.FileHandler.pattern = /var/opengrok/log/opengrok%g.%u.log
+java.util.logging.FileHandler.pattern = <%= @logging_pattern %>
