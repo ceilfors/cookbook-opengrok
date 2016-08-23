@@ -50,6 +50,10 @@ describe 'opengrok overridden properties' do
   describe file('/var/custom/opengrok/etc/configuration.xml') do
     it { should be_file }
     it { should be_owned_by 'custom_user' }
+    its(:content) {
+      should match %r(<void property="dataRoot">\n[ ]+<string>/var/custom/opengrok/data</string>)
+      should match %r(<void property="sourceRoot">\n[ ]+<string>/var/custom/opengrok/src</string>)
+    }
   end
 
   describe file('/var/custom/opengrok/logging.properties') do
