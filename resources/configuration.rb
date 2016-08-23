@@ -19,10 +19,10 @@ action :manage do
     cookbook 'opengrok'
     owner opengrok_user
     group opengrok_group
-    variables({
-                data_root: ::File.join(home_path, 'data'),
-                src_root: ::File.join(home_path, 'src')
-              })
+    variables ({
+      data_root: ::File.join(home_path, 'data'),
+      src_root: ::File.join(home_path, 'src')
+    })
   end
 
   template ::File.join(home_path, 'logging.properties') do
