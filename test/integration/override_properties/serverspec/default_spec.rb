@@ -67,13 +67,13 @@ describe 'opengrok overridden properties' do
     it { should be_owned_by 'custom_user' }
     it { should be_grouped_into 'custom_group' }
     it { should be_executable }
-    its(:content) {
+    its(:content) do
       should match /-Xmx4096m/
       should match %r(-Djava.util.logging.config.file=/var/custom/opengrok/logging.properties)
       should match %r(-jar /opt/custom/opengrok/lib/opengrok.jar)
       should match %r(-R /var/custom/opengrok/etc/configuration.xml)
       should match /-P -H/
-    }
+    end
   end
 
   describe cron do
