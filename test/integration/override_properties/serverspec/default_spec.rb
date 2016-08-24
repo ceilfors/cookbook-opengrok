@@ -77,7 +77,6 @@ describe 'opengrok overridden properties' do
   end
 
   describe cron do
-    it { should have_entry('10 10 * * * /var/custom/opengrok/index.sh').with_user('custom_user') }
+    it { should have_entry('10 10 * * * /var/custom/opengrok/index.sh > /var/custom/opengrok/log/cron_indexer.log 2>&1').with_user('custom_user') }
   end
-
 end

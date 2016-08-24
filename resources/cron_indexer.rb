@@ -29,7 +29,7 @@ action :create do
 
   cron 'opengrok cron indexer' do
     user opengrok_user
-    command indexer_path
+    command "#{indexer_path} > #{::File.join(home_path, 'log', 'cron_indexer.log')} 2>&1"
     minute cron_minute
     hour cron_hour
   end
