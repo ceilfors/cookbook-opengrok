@@ -1,6 +1,7 @@
 property :download_url, String
 property :download_checksum, String
 property :install_path, String
+property :home_path, String
 property :version, String
 property :opengrok_user, String
 property :opengrok_group, String
@@ -30,6 +31,36 @@ action :install do
     notifies :run, 'execute[deploy opengrok war]'
   end
 
+  %w(src data etc log).each do |dir|
+    directory ::File.join(home_path, dir) do
+      owner opengrok_user
+      group opengrok_group
+      recursive true
+    end
+  end
+
+# TODO: Need to configure OpenGrok web.xml to point to this file when we configure web.xml
+  template ::File.join(home_path, 'etc', 'configuration.xml') do
+    source 'configuration.xml.erb'
+    cookbook 'opengrok'
+    owner opengrok_user
+    group opengrok_group
+    variables ({
+      data_root: ::File.join(home_path, 'data'),
+      src_root: ::File.join(home_path, 'src')
+    })
+  end
+
+  template ::File.join(home_path, 'logging.properties') do
+    source 'logging.properties.erb'
+    cookbook 'opengrok'
+    owner opengrok_user
+    group opengrok_group
+    variables ({
+      logging_pattern: ::File.join(home_path, 'log', 'opengrok%g.%u.log')
+    })
+  end
+
   package 'ctags' do
     action :install
   end
@@ -55,5 +86,3 @@ action :install do
     action :nothing
   end
 end
-
-
