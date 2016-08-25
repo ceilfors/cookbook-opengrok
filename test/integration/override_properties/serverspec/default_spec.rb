@@ -20,6 +20,10 @@ describe 'opengrok overridden properties' do
     it { should be_grouped_into 'custom_group' }
   end
 
+  describe file('/opt/tomcat_opengrok/conf/context.xml') do
+    its(:content) { should match '<Parameter name="CONFIGURATION" value="/var/custom/opengrok/etc/configuration.xml" override="false"' }
+  end
+
   describe service('tomcat_opengrok') do
     it { should be_enabled }
     it { should be_running }
