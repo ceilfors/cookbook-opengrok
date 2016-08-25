@@ -14,7 +14,7 @@ action :manage do
   end
 
 # TODO: Need to configure OpenGrok web.xml to point to this file when we configure web.xml
-  template ::File.join(home_path, 'etc/configuration.xml') do
+  template ::File.join(home_path, 'etc', 'configuration.xml') do
     source 'configuration.xml.erb'
     cookbook 'opengrok'
     owner opengrok_user
