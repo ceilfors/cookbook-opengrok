@@ -10,8 +10,6 @@ default_action :install
 
 action :install do
 
-  include_recipe 'java'
-
   group opengrok_group
   user opengrok_user do
     group opengrok_group
