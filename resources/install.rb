@@ -86,6 +86,7 @@ action :install do
     action [:start, :enable]
     tomcat_user opengrok_user
     tomcat_group opengrok_group
+    # TODO: Sort out notifications! Subscribe to new tomcat installation, etc
   end
 
   copy_source = ::File.join(install_path, 'opengrok', 'lib', 'source.war')
