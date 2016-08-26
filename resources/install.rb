@@ -39,7 +39,6 @@ action :install do
     end
   end
 
-# TODO: Need to configure OpenGrok web.xml to point to this file when we configure web.xml
   template ::File.join(home_path, 'etc', 'configuration.xml') do
     source 'configuration.xml.erb'
     cookbook 'opengrok'
@@ -65,10 +64,22 @@ action :install do
     action :install
   end
 
+  context_xml_path = ::File.join('/opt/tomcat_opengrok', 'conf', 'context.xml')
   tomcat_install 'opengrok' do
     tarball_uri 'http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.36/bin/apache-tomcat-8.0.36.tar.gz'
     tomcat_user opengrok_user
     tomcat_group opengrok_group
+    notifies :create, "template[#{context_xml_path}]", :immediately
+  end
+
+  template context_xml_path do
+    source 'context.xml.erb'
+    cookbook 'opengrok'
+    owner opengrok_user
+    group opengrok_group
+    variables ({
+      opengrok_configuration_path: ::File.join(home_path, 'etc', 'configuration.xml')
+    })
   end
 
   tomcat_service 'opengrok' do
