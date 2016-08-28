@@ -15,7 +15,3 @@ opengrok_install 'opengrok' do
   opengrok_group node['opengrok']['group']
 end
 
-opengrok_configuration node['opengrok']['home'] do
-  opengrok_user node['opengrok']['user']
-  opengrok_group node['opengrok']['group']
-end
