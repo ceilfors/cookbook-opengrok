@@ -14,13 +14,13 @@ describe 'opengrok overridden properties' do
     it { should exist }
   end
 
-  describe file('/opt/custom/tomcat_opengrok/LICENSE') do
+  describe file('/opt/tomcat_opengrok/LICENSE') do
     it { should be_file }
     it { should be_owned_by 'custom_user' }
     it { should be_grouped_into 'custom_group' }
   end
 
-  describe file('/opt/custom/tomcat_opengrok/conf/context.xml') do
+  describe file('/opt/tomcat_opengrok/conf/context.xml') do
     its(:content) { should match '<Parameter name="CONFIGURATION" value="/var/custom/opengrok/etc/configuration.xml" override="false"' }
   end
 
@@ -35,7 +35,7 @@ describe 'opengrok overridden properties' do
     it { should be_grouped_into 'custom_group' }
   end
 
-  describe file('/opt/custom/tomcat_opengrok/webapps/source.war') do
+  describe file('/opt/tomcat_opengrok/webapps/source.war') do
     it { should be_file }
     it { should be_owned_by 'custom_user' }
   end

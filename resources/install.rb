@@ -63,19 +63,11 @@ action :install do
   end
 
   context_xml_path = ::File.join('/opt/tomcat_opengrok', 'conf', 'context.xml')
-  tomcat_install_resource = tomcat_install 'opengrok' do
+  tomcat_install 'opengrok' do
     tarball_uri 'http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.36/bin/apache-tomcat-8.0.36.tar.gz'
     tomcat_user opengrok_user
     tomcat_group opengrok_group
     notifies :create, "template[#{context_xml_path}]", :immediately
-  end
-  $opengrok_install_path = new_resource.install_path
-  tomcat_install_resource.provider.class_eval do
-    alias_method :old_full_install_path, :full_install_path
-
-    def full_install_path
-      old_full_install_path.gsub('/opt', $opengrok_install_path)
-    end
   end
 
   template context_xml_path do
