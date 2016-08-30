@@ -14,7 +14,6 @@ action :install do
   user opengrok_user do
     group opengrok_group
     system true
-    shell '/bin/nologin'
   end
 
   ark 'opengrok' do
