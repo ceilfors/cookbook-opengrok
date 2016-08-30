@@ -1,7 +1,4 @@
-property :home_path, String, name_property: true
-property :opengrok_user, String
-property :opengrok_group, String
-property :install_path, String, default: '/opt/opengrok'
+property :instance_name, String, name_property: true
 property :java_opts, String, default: '-Xmx2048m'
 property :extra_opts, String, default: '-S -P -H'
 property :cron_minute, String, default: '0'
@@ -10,6 +7,12 @@ property :cron_hour, String, default: '0'
 default_action :create
 
 action :create do
+
+  opengrok_install = resources(opengrok_install: instance_name)
+  home_path = opengrok_install.home_path
+  install_path = opengrok_install.install_path
+  opengrok_user = opengrok_install.opengrok_user
+  opengrok_group = opengrok_install.opengrok_group
 
   indexer_path = ::File.join(home_path, 'index.sh')
   template indexer_path do
