@@ -62,6 +62,7 @@ action :install do
     action :install
   end
 
+  # TODO: Tomcat symlink is hardcoded in tomcat cookbook, remove when chef-cookbooks/tomcat#269
   context_xml_path = ::File.join('/opt/tomcat_opengrok', 'conf', 'context.xml')
   tomcat_install 'opengrok' do
     tarball_uri 'http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.36/bin/apache-tomcat-8.0.36.tar.gz'
@@ -88,7 +89,7 @@ action :install do
   end
 
   copy_source = ::File.join(install_path, 'opengrok', 'lib', 'source.war')
-  # Tomcat symlink is hardcoded in tomcat cookbook
+  # TODO: Tomcat symlink is hardcoded in tomcat cookbook, remove when chef-cookbooks/tomcat#269
   copy_target = ::File.join('/opt/tomcat_opengrok', 'webapps')
 
   execute 'deploy opengrok war' do
