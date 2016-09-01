@@ -10,6 +10,10 @@ default_action :install
 
 action :install do
 
+  package 'ctags' do
+    action :install
+  end
+
   group opengrok_group
   user opengrok_user do
     group opengrok_group
@@ -36,7 +40,9 @@ action :install do
     end
   end
 
-  template ::File.join(home_path, 'etc', 'configuration.xml') do
+  context_xml_path = ::File.join('/opt/tomcat_opengrok', 'conf', 'context.xml')
+  configuration_xml_path = ::File.join(home_path, 'etc', 'configuration.xml')
+  template configuration_xml_path do
     source 'configuration.xml.erb'
     cookbook 'opengrok'
     owner opengrok_user
@@ -45,8 +51,11 @@ action :install do
       data_root: ::File.join(home_path, 'data'),
       src_root: ::File.join(home_path, 'src')
     })
+    notifies :create, template: context_xml_path
+    notifies :restart, tomcat_service: 'opengrok'
   end
 
+  # TODO: Move this to cron_indexer
   template ::File.join(home_path, 'logging.properties') do
     source 'logging.properties.erb'
     cookbook 'opengrok'
@@ -57,12 +66,7 @@ action :install do
     })
   end
 
-  package 'ctags' do
-    action :install
-  end
-
   # TODO: Tomcat symlink is hardcoded in tomcat cookbook, remove when chef-cookbooks/tomcat#269
-  context_xml_path = ::File.join('/opt/tomcat_opengrok', 'conf', 'context.xml')
   tomcat_install 'opengrok' do
     tarball_uri 'http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.36/bin/apache-tomcat-8.0.36.tar.gz'
     tomcat_user opengrok_user
@@ -76,15 +80,9 @@ action :install do
     owner opengrok_user
     group opengrok_group
     variables ({
-      opengrok_configuration_path: ::File.join(home_path, 'etc', 'configuration.xml')
+      opengrok_configuration_path: configuration_xml_path
     })
-  end
-
-  tomcat_service 'opengrok' do
-    action [:start, :enable]
-    tomcat_user opengrok_user
-    tomcat_group opengrok_group
-    # TODO: Sort out notifications! Subscribe to new tomcat installation, etc
+    notifies :restart, tomcat_service: 'opengrok'
   end
 
   copy_source = ::File.join(install_path, 'opengrok', 'lib', 'source.war')
@@ -94,5 +92,12 @@ action :install do
   execute 'deploy opengrok war' do
     command "cp -p #{copy_source} #{copy_target}"
     action :nothing
+    notifies :restart, tomcat_service: 'opengrok'
+  end
+
+  tomcat_service 'opengrok' do
+    action [:start, :enable]
+    tomcat_user opengrok_user
+    tomcat_group opengrok_group
   end
 end
