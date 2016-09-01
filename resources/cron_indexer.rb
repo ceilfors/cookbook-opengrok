@@ -15,6 +15,18 @@ action :create do
   opengrok_group = opengrok_install.opengrok_group
 
   indexer_path = ::File.join(home_path, 'index.sh')
+  logging_properties_path = ::File.join(home_path, 'logging.properties')
+
+  template logging_properties_path do
+    source 'logging.properties.erb'
+    cookbook 'opengrok'
+    owner opengrok_user
+    group opengrok_group
+    variables ({
+      logging_pattern: ::File.join(home_path, 'log', 'opengrok%g.%u.log')
+    })
+  end
+
   template indexer_path do
     source 'index.sh.erb'
     cookbook 'opengrok'
@@ -23,7 +35,7 @@ action :create do
     variables ({
       java_opts: java_opts,
       extra_opts: extra_opts,
-      logging_properties_path: ::File.join(home_path, 'logging.properties'),
+      logging_properties_path: logging_properties_path,
       opengrok_jar_path: ::File.join(install_path, 'opengrok', 'lib', 'opengrok.jar'),
       opengrok_configuration_path: ::File.join(home_path, 'etc', 'configuration.xml')
     })

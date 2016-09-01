@@ -55,17 +55,6 @@ action :install do
     notifies :restart, tomcat_service: 'opengrok'
   end
 
-  # TODO: Move this to cron_indexer
-  template ::File.join(home_path, 'logging.properties') do
-    source 'logging.properties.erb'
-    cookbook 'opengrok'
-    owner opengrok_user
-    group opengrok_group
-    variables ({
-      logging_pattern: ::File.join(home_path, 'log', 'opengrok%g.%u.log')
-    })
-  end
-
   # TODO: Tomcat symlink is hardcoded in tomcat cookbook, remove when chef-cookbooks/tomcat#269
   tomcat_install 'opengrok' do
     tarball_uri 'http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.36/bin/apache-tomcat-8.0.36.tar.gz'
