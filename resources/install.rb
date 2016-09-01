@@ -32,11 +32,16 @@ action :install do
     notifies :run, 'execute[deploy opengrok war]'
   end
 
+  directory home_path do
+    owner opengrok_user
+    group opengrok_group
+    recursive true
+  end
+
   %w(src data etc log).each do |dir|
     directory ::File.join(home_path, dir) do
       owner opengrok_user
       group opengrok_group
-      recursive true
     end
   end
 
