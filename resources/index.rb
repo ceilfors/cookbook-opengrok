@@ -4,9 +4,9 @@ property :extra_opts, String, default: '-S -P -H'
 property :cron_minute, String, default: '0'
 property :cron_hour, String, default: '0'
 
-default_action :create
+default_action :update
 
-action :create do
+action :update do
 
   opengrok_install = resources(opengrok_install: instance_name)
   home_path = opengrok_install.home_path

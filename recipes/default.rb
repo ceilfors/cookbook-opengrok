@@ -16,4 +16,4 @@ opengrok_install 'opengrok' do
   opengrok_group node['opengrok']['group']
 end
 
-opengrok_cron_indexer 'opengrok'
+opengrok_index 'opengrok'

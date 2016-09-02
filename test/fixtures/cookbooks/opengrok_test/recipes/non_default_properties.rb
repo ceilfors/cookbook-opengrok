@@ -10,7 +10,7 @@ opengrok_install 'my_opengrok' do
   opengrok_group 'custom_group'
 end
 
-opengrok_cron_indexer 'my_opengrok' do
+opengrok_index 'my_opengrok' do
   java_opts '-Xmx4096m'
   extra_opts '-P -H'
   cron_minute '10'
