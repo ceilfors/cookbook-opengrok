@@ -13,6 +13,4 @@ end
 opengrok_index 'my_opengrok' do
   java_opts '-Xmx4096m'
   extra_opts '-P -H'
-  cron_minute '10'
-  cron_hour '10'
 end

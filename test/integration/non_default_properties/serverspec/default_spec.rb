@@ -40,10 +40,6 @@ describe 'opengrok overridden properties' do
     it { should be_owned_by 'custom_user' }
   end
 
-  describe command('curl http://localhost:8080/source/') do
-    its(:stdout) { should match %r(<title>Search</title>) }
-  end
-
   %w(src data etc log).each do |dir|
     describe file("/var/custom/opengrok/#{dir}") do
       it { should be_directory }
@@ -80,7 +76,20 @@ describe 'opengrok overridden properties' do
     end
   end
 
-  describe cron do
-    it { should have_entry('10 10 * * * /var/custom/opengrok/index.sh > /var/custom/opengrok/log/cron_indexer.log 2>&1').with_user('custom_user') }
+  describe port(2424) do
+    it { should be_listening }
+  end
+
+  describe port(8080) do
+    it { should be_listening }
+  end
+
+  describe command('curl http://localhost:8080/source/') do
+    its(:stdout) { should match %r(<title>Search</title>) }
+  end
+
+  describe file('/var/custom/opengrok/data/index') do
+    it { should be_directory }
+    it { should be_owned_by 'custom_user' }
   end
 end

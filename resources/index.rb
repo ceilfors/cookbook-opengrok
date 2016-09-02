@@ -1,8 +1,6 @@
 property :instance_name, String, name_property: true
 property :java_opts, String, default: '-Xmx2048m'
 property :extra_opts, String, default: '-S -P -H'
-property :cron_minute, String, default: '0'
-property :cron_hour, String, default: '0'
 
 default_action :update
 
@@ -42,11 +40,10 @@ action :update do
     mode '0775'
   end
 
-  cron 'opengrok cron indexer' do
+  # TODO: Log rotate
+  execute 'index_opengrok' do
     user opengrok_user
-    home home_path
-    command "#{indexer_path} > #{::File.join(home_path, 'log', 'cron_indexer.log')} 2>&1"
-    minute cron_minute
-    hour cron_hour
+    cwd home_path
+    command "#{indexer_path} >> #{::File.join(home_path, 'log', 'index.log')} 2>&1"
   end
 end
