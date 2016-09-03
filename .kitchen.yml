@@ -15,6 +15,9 @@ suites:
     run_list:
       - recipe[opengrok::default]
     attributes:
+  - name: helloworld
+    run_list:
+      - recipe[opengrok_test::helloworld]
   - name: non_default_properties
     run_list:
       - recipe[opengrok_test::non_default_properties]
