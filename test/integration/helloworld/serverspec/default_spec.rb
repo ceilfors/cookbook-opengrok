@@ -68,6 +68,8 @@ describe 'opengrok helloworld' do
     it { should be_owned_by 'opengrok' }
     it { should be_executable }
     its(:content) do
+      # TODO It seems like ServerSpec output is not showing nicely when we have multiple 'should match'
+      # The output shows as if we only have 1 test case which make it not really clear for the user.
       should match /-Xmx2048m/
       should match %r(-Djava.util.logging.config.file=/var/opengrok/logging.properties)
       should match %r(-jar /opt/opengrok/lib/opengrok.jar)
