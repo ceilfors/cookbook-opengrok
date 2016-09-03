@@ -1,10 +1,10 @@
 property :download_url, String
 property :download_checksum, String
-property :install_path, String
-property :home_path, String
+property :install_path, String, default: '/opt/opengrok'
+property :home_path, String, default: '/var/opengrok'
 property :version, String
-property :opengrok_user, String
-property :opengrok_group, String
+property :opengrok_user, String, default: 'opengrok'
+property :opengrok_group, String, default: 'opengrok'
 
 default_action :install
 
