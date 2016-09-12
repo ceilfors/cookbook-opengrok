@@ -1,6 +1,6 @@
 property :download_url, String
 property :download_checksum, String
-property :install_path, String, default: '/opt/opengrok'
+property :install_path, String, default: '/opt/'
 property :home_path, String, default: '/var/opengrok'
 property :version, String
 property :opengrok_user, String, default: 'opengrok'

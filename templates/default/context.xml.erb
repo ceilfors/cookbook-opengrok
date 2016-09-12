@@ -19,5 +19,5 @@
     <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
     -->
 
-   <Parameter name="CONFIGURATION" value="<%= %>/var/custom/opengrok/etc/configuration.xml" override="false"/>
+   <Parameter name="CONFIGURATION" value="<%= @opengrok_configuration_path %>" override="false"/>
 </Context>
