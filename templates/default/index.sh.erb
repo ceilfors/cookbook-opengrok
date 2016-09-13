@@ -2,6 +2,7 @@
     <%= @java_opts %> \
     -Djava.util.logging.config.file=<%= @logging_properties_path %> \
     -jar <%= @opengrok_jar_path %> \
+    -W <%= @opengrok_configuration_path %> \
     -R <%= @opengrok_configuration_path %> \
     -U localhost:2424 \
     <%= @extra_opts %>
