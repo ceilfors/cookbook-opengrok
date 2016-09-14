@@ -50,10 +50,8 @@ shared_examples_for 'opengrok install' do |args = {}|
   describe file("#{expected_home_path}/etc/configuration.xml") do
     it { should be_file }
     it { should be_owned_by expected_user }
-    its(:content) {
-      should match %r(<void property="dataRoot">\n[ ]+<string>#{expected_home_path}/data</string>)
-      should match %r(<void property="sourceRoot">\n[ ]+<string>#{expected_home_path}/src</string>)
-    }
+    its(:content) { should match %r(<void property="dataRoot">\n[ ]+<string>#{expected_home_path}/data</string>) }
+    its(:content) { should match %r(<void property="sourceRoot">\n[ ]+<string>#{expected_home_path}/src</string>) }
   end
 
   describe port(2424) do
