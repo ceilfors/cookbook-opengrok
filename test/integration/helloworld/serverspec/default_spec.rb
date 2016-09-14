@@ -6,55 +6,7 @@ describe 'opengrok helloworld' do
     its(:exit_status) { should eq 0 }
   end
 
-  describe user('opengrok') do
-    it { should exist }
-  end
-
-  describe group('opengrok') do
-    it { should exist }
-  end
-
-  describe file('/opt/tomcat_opengrok/LICENSE') do
-    it { should be_file }
-    it { should be_grouped_into 'opengrok' }
-    it { should be_owned_by 'opengrok' }
-  end
-
-  describe file('/opt/tomcat_opengrok/conf/context.xml') do
-    its(:content) { should match '<Parameter name="CONFIGURATION" value="/var/opengrok/etc/configuration.xml" override="false"' }
-  end
-
-  describe service('tomcat_opengrok') do
-    it { should be_enabled }
-    it { should be_running }
-  end
-
-  describe file('/opt/opengrok/bin/OpenGrok') do
-    it { should be_file }
-    it { should be_grouped_into 'opengrok' }
-    it { should be_owned_by 'opengrok' }
-  end
-
-  describe file('/opt/tomcat_opengrok/webapps/source.war') do
-    it { should be_file }
-    it { should be_owned_by 'opengrok' }
-  end
-
-  %w(src data etc log).each do |dir|
-    describe file("/var/opengrok/#{dir}") do
-      it { should be_directory }
-      it { should be_owned_by 'opengrok' }
-    end
-  end
-
-  describe file('/var/opengrok/etc/configuration.xml') do
-    it { should be_file }
-    it { should be_owned_by 'opengrok' }
-    its(:content) {
-      should match %r(<void property="dataRoot">\n[ ]+<string>/var/opengrok/data</string>)
-      should match %r(<void property="sourceRoot">\n[ ]+<string>/var/opengrok/src</string>)
-    }
-  end
+  it_behaves_like 'opengrok install'
 
   describe file('/var/opengrok/logging.properties') do
     it { should be_file }
@@ -78,21 +30,12 @@ describe 'opengrok helloworld' do
     end
   end
 
-  describe port(2424) do
-    it { should be_listening }
-  end
-
-  describe port(8080) do
-    it { should be_listening }
-  end
-
   describe file('/var/opengrok/data/index') do
     it { should be_directory }
     it { should be_owned_by 'opengrok' }
   end
 
   describe command('curl http://localhost:8080/source/') do
-    its(:stdout) { should match %r(<title>Search</title>) }
     its(:stdout) { should match %r(<option value="gq">gq</option>) }
     its(:stdout) { should match %r(<option value="daun">daun</option>) }
   end
