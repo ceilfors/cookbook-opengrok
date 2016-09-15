@@ -6,3 +6,4 @@ description      'A wrapper cookbook for use in testing'
 version          '0.1.0'
 
 depends          'opengrok'
+depends          'java', '~> 1.41.0'

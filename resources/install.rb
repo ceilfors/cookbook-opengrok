@@ -22,7 +22,7 @@ action :install do
 
   ark 'opengrok' do
     url download_url
-    checksum node['opengrok']['checksum']
+    checksum download_checksum
     prefix_root install_path
     prefix_home install_path
     prefix_bin ::File.join(install_path, 'bin')

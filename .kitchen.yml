@@ -11,10 +11,6 @@ platforms:
   - name: centos-7.2
 
 suites:
-  - name: default
-    run_list:
-      - recipe[opengrok::default]
-    attributes:
   - name: helloworld
     run_list:
       - recipe[opengrok_test::helloworld]
