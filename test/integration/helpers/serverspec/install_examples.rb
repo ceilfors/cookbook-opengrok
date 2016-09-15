@@ -21,7 +21,7 @@ shared_examples_for 'opengrok install' do |args = {}|
   end
 
   describe file('/opt/tomcat_opengrok/conf/context.xml') do
-    its(:content) { should match '<Parameter name="CONFIGURATION" value="/var/opengrok/etc/configuration.xml" override="false"' }
+    its(:content) { should match %Q[<Parameter name="CONFIGURATION" value="#{expected_home_path}/etc/configuration.xml" override="false"] }
   end
 
   describe service('tomcat_opengrok') do
