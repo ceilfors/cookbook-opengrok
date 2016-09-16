@@ -6,13 +6,11 @@
 
 require 'spec_helper'
 
-describe 'opengrok::default' do
+describe 'opengrok_test::helloworld' do
   context 'When all attributes are default, on centos' do
     cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new(platform: 'centos', version: '7.2.1511',
-                                          step_into: %w(opengrok_install opengrok_index)) do |node|
-        node.set['opengrok']['home'] = '/opengrok/home'
-      end
+                                          step_into: %w(opengrok_install opengrok_index))
       runner.converge(described_recipe)
     end
 
@@ -29,27 +27,27 @@ describe 'opengrok::default' do
     end
 
     it 'should create opengrok user' do
-      expect(chef_run).to create_user(chef_run.node['opengrok']['user'])
+      expect(chef_run).to create_user('opengrok')
     end
 
     it 'should create opengrok group' do
-      expect(chef_run).to create_user(chef_run.node['opengrok']['group'])
+      expect(chef_run).to create_user('opengrok')
     end
 
     it 'creates configuration.xml file' do
-      file = '/opengrok/home/etc/configuration.xml'
+      file = '/var/opengrok/etc/configuration.xml'
       expect(chef_run).to create_template(file)
       template = chef_run.template(file)
-      expect(template.variables[:data_root]).to eq('/opengrok/home/data')
-      expect(template.variables[:src_root]).to eq('/opengrok/home/src')
+      expect(template.variables[:data_root]).to eq('/var/opengrok/data')
+      expect(template.variables[:src_root]).to eq('/var/opengrok/src')
     end
 
     it 'creates logging.properties file' do
-      expect(chef_run).to create_template('/opengrok/home/logging.properties')
+      expect(chef_run).to create_template('/var/opengrok/logging.properties')
     end
 
     it 'creates index.sh file' do
-      expect(chef_run).to create_template('/opengrok/home/index.sh')
+      expect(chef_run).to create_template('/var/opengrok/index.sh')
     end
   end
 end
