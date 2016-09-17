@@ -1,0 +1,31 @@
+driver:
+  name: dokken
+  chef_version: latest
+  privileged: true # because Docker and SystemD/Upstart
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+
+busser:
+  sudo: false
+
+platforms:
+- name: centos-7
+  driver:
+    image: centos:7
+    platform: rhel
+    pid_one_command: /usr/lib/systemd/systemd
+    intermediate_instructions:
+      - RUN yum -y install lsof which systemd-sysv initscripts
+
+suites:
+  - name: helloworld
+    run_list:
+      - recipe[opengrok_test::helloworld]
+  - name: non_default_properties
+    run_list:
+      - recipe[opengrok_test::non_default_properties]
+
