@@ -21,7 +21,7 @@ shared_examples_for 'opengrok install' do |args = {}|
   end
 
   describe file('/opt/tomcat_opengrok/conf/context.xml') do
-    its(:content) { should match %Q[<Parameter name="CONFIGURATION" value="#{expected_home_path}/etc/configuration.xml" override="false"] }
+    its(:content) { should match %(<Parameter name="CONFIGURATION" value="#{expected_home_path}/etc/configuration.xml" override="false") }
   end
 
   describe service('tomcat_opengrok') do
@@ -50,8 +50,8 @@ shared_examples_for 'opengrok install' do |args = {}|
   describe file("#{expected_home_path}/etc/configuration.xml") do
     it { should be_file }
     it { should be_owned_by expected_user }
-    its(:content) { should match %r(<void property="dataRoot">\n[ ]+<string>#{expected_home_path}/data</string>) }
-    its(:content) { should match %r(<void property="sourceRoot">\n[ ]+<string>#{expected_home_path}/src</string>) }
+    its(:content) { should match %r{<void property="dataRoot">\n[ ]+<string>#{expected_home_path}/data</string>} }
+    its(:content) { should match %r{<void property="sourceRoot">\n[ ]+<string>#{expected_home_path}/src</string>} }
   end
 
   describe port(2424) do
@@ -63,6 +63,6 @@ shared_examples_for 'opengrok install' do |args = {}|
   end
 
   describe command('curl http://localhost:8080/source/') do
-    its(:stdout) { should match %r(<title>Search</title>) }
+    its(:stdout) { should match %r{<title>Search</title>} }
   end
 end

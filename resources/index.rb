@@ -5,7 +5,6 @@ property :extra_opts, String, default: '-S -P -H'
 default_action :update
 
 action :update do
-
   opengrok_install = resources(opengrok_install: instance_name)
   home_path = opengrok_install.home_path
   install_path = opengrok_install.install_path
@@ -20,9 +19,7 @@ action :update do
     cookbook 'opengrok'
     owner opengrok_user
     group opengrok_group
-    variables ({
-      logging_pattern: ::File.join(home_path, 'log', 'opengrok%g.%u.log')
-    })
+    variables logging_pattern: ::File.join(home_path, 'log', 'opengrok%g.%u.log')
   end
 
   template indexer_path do
@@ -30,13 +27,11 @@ action :update do
     cookbook 'opengrok'
     owner opengrok_user
     group opengrok_group
-    variables ({
-      java_opts: java_opts,
-      extra_opts: extra_opts,
-      logging_properties_path: logging_properties_path,
-      opengrok_jar_path: ::File.join(install_path, 'opengrok', 'lib', 'opengrok.jar'),
-      opengrok_configuration_path: ::File.join(home_path, 'etc', 'configuration.xml')
-    })
+    variables java_opts: java_opts,
+              extra_opts: extra_opts,
+              logging_properties_path: logging_properties_path,
+              opengrok_jar_path: ::File.join(install_path, 'opengrok', 'lib', 'opengrok.jar'),
+              opengrok_configuration_path: ::File.join(home_path, 'etc', 'configuration.xml')
     mode '0775'
   end
 

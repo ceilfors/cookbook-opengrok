@@ -9,7 +9,6 @@ property :opengrok_group, String, default: 'opengrok'
 default_action :install
 
 action :install do
-
   package 'ctags' do
     action :install
   end
@@ -52,10 +51,8 @@ action :install do
     cookbook 'opengrok'
     owner opengrok_user
     group opengrok_group
-    variables ({
-      data_root: ::File.join(home_path, 'data'),
-      src_root: ::File.join(home_path, 'src')
-    })
+    variables data_root: ::File.join(home_path, 'data'),
+              src_root: ::File.join(home_path, 'src')
     notifies :create, template: context_xml_path
     notifies :restart, tomcat_service: 'opengrok'
   end
@@ -73,9 +70,7 @@ action :install do
     cookbook 'opengrok'
     owner opengrok_user
     group opengrok_group
-    variables ({
-      opengrok_configuration_path: configuration_xml_path
-    })
+    variables opengrok_configuration_path: configuration_xml_path
     notifies :restart, tomcat_service: 'opengrok'
   end
 
