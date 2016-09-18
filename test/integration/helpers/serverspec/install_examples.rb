@@ -5,6 +5,7 @@ shared_examples_for 'opengrok install' do |args = {}|
   expected_home_path = args[:home_path] || '/var/opengrok'
   expected_user = args[:user] || 'opengrok'
   expected_group = args[:group] || 'opengrok'
+  expected_tomcat_version = args[:tomcat_version] || '8.0.36'
 
   describe user(expected_user) do
     it { should exist }
@@ -12,6 +13,10 @@ shared_examples_for 'opengrok install' do |args = {}|
 
   describe group(expected_group) do
     it { should exist }
+  end
+
+  describe file("/opt/tomcat_opengrok_#{expected_tomcat_version.gsub(/\./, '_')}/") do
+    it { should be_directory }
   end
 
   describe file('/opt/tomcat_opengrok/LICENSE') do

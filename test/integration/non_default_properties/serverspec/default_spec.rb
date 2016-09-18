@@ -4,6 +4,7 @@ describe 'non default properties' do
   it_behaves_like 'opengrok install',
                   install_path: '/opt/custom',
                   home_path: '/var/custom/opengrok',
+                  tomcat_version: '8.0.37',
                   user: 'custom_user',
                   group: 'custom_group'
 

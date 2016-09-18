@@ -1,5 +1,7 @@
 property :download_url, String
 property :download_checksum, String
+property :tomcat_version, String, default: '8.0.36'
+property :tomcat_tarball_uri, String, default: 'http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.36/bin/apache-tomcat-8.0.36.tar.gz'
 property :install_path, String, default: '/opt/'
 property :home_path, String, default: '/var/opengrok'
 property :version, String
@@ -28,7 +30,7 @@ action :install do
     version new_resource.version
     owner opengrok_user
     group opengrok_group
-    notifies :run, 'execute[deploy opengrok war]'
+    notifies :run, 'execute[deploy_opengrok_war]'
   end
 
   directory home_path do
@@ -59,10 +61,12 @@ action :install do
 
   # TODO: Tomcat symlink is hardcoded in tomcat cookbook, remove when chef-cookbooks/tomcat#269
   tomcat_install 'opengrok' do
-    tarball_uri 'http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.36/bin/apache-tomcat-8.0.36.tar.gz'
+    version tomcat_version
+    tarball_uri tomcat_tarball_uri
     tomcat_user opengrok_user
     tomcat_group opengrok_group
     notifies :create, "template[#{context_xml_path}]", :immediately
+    notifies :run, 'execute[deploy_opengrok_war]'
   end
 
   template context_xml_path do
@@ -78,7 +82,7 @@ action :install do
   # TODO: Tomcat symlink is hardcoded in tomcat cookbook, remove when chef-cookbooks/tomcat#269
   copy_target = ::File.join('/opt/tomcat_opengrok', 'webapps')
 
-  execute 'deploy opengrok war' do
+  execute 'deploy_opengrok_war' do
     command "cp -p #{copy_source} #{copy_target}"
     action :nothing
     notifies :restart, tomcat_service: 'opengrok'
