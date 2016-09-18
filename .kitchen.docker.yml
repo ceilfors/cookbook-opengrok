@@ -9,7 +9,8 @@ transport:
 provisioner:
   name: dokken
 
-busser:
+verifier:
+  root_path: '/opt/verifier'
   sudo: false
 
 platforms:
