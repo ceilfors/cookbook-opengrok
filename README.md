@@ -1,6 +1,63 @@
-# cookbook-opengrok
+# OpenGrok cookbook
 
-TODO: Enter the cookbook description here.
+[![Build Status](https://travis-ci.org/ceilfors/cookbook-opengrok.svg?branch=master)](https://travis-ci.org/ceilfors/cookbook-opengrok)
+[![Cookbook Version](https://img.shields.io/cookbook/v/opengrok.svg)](https://supermarket.chef.io/cookbooks/opengrok)
+
+A chef library cookbook that provides resources for installing and indexing OpenGrok.
+
+## Requirements
+
+### Platforms
+
+- RHEL and derivatives
+
+### Chef
+
+- Chef 12.1+
+
+## Usage
+
+1. Take a look into the [`helloworld recipe`](test/fixtures/cookbooks/opengrok_test/recipes/helloworld.rb).
+2. Adapt the `helloworld recipe` to your own cookbook wrapper, especially the generation of the 'src' directory.
+    You can use any chef resources from any community cookbooks here as long as its supported by OpenGrok, e.g. git resource, subversion resource, etc. 
+3. Schedule `chef-client` as a cron job. This will be the point where your 'src' is being updated periodically and indexed by Chef
+    You can use the [chef-client::cron](https://github.com/chef-cookbooks/chef-client#cron) recipe.
+
+## Resources
+
+### opengrok_install
+
+opengrok_install installs an instance of opengrok and all of its required dependencies
+and files. This resource will also install tomcat and enable it as a service for you.
+
+#### properties
+
+- `download_url`: The opengrok download URL
+- `download_checksum`: The SHA-256 checksum of the opengrok binary
+- `tomcat_version`: The version of tomcat to be installed. Default: 8.0.36
+- `tomcat_tarball_uri`: The full path to download tomcat. Default: http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.36/bin/apache-tomcat-8.0.36.tar.gz
+- `install_path`: The full path to install opengrok. Default: /opt
+- `home_path`: The full path to opengrok home directory. This will be the location where the src directory, data directory, and configuration.xml is found. Default: /var/opengrok
+- `version`: The version of opengrok to be installed. Currently only used for directory name generation.
+- `opengrok_user`: The system user who will manage opengrok files and service. Default: 'opengrok'
+- `opengrok_group`: The group which will own opengrok files. Default: 'opengrok'
+
+#### actions
+
+- `install` (default)
+
+### opengrok_index
+
+opengrok_index will trigger OpenGrok indexing process. You can only use opengrok_index when you have declared opengrok_install.
+
+#### properties
+
+- `java_opts`: The Java options that will be used for the OpenGrok indexing jar. Default: -Xmx2048m
+- `extra_opts`: The options that will be passed on to OpenGrok indexing jar. Default: -S -P -H
+
+#### actions
+
+- `update` (default)
 
 # Copyright
 
