@@ -15,7 +15,7 @@ shared_examples_for 'opengrok install' do |args = {}|
     it { should exist }
   end
 
-  describe file("/opt/tomcat_opengrok_#{expected_tomcat_version.gsub(/\./, '_')}/") do
+  describe file("/opt/tomcat_opengrok_#{expected_tomcat_version.tr('.', '_')}/") do
     it { should be_directory }
   end
 
