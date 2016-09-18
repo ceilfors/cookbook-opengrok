@@ -19,8 +19,11 @@ A chef library cookbook that provides resources for installing and indexing Open
 
 1. Take a look into the [`helloworld recipe`](test/fixtures/cookbooks/opengrok_test/recipes/helloworld.rb).
 2. Adapt the `helloworld recipe` to your own cookbook wrapper, especially the generation of the 'src' directory.
+
     You can use any chef resources from any community cookbooks here as long as its supported by OpenGrok, e.g. git resource, subversion resource, etc. 
+
 3. Schedule `chef-client` as a cron job. This will be the point where your 'src' is being updated periodically and indexed by Chef
+
     You can use the [chef-client::cron](https://github.com/chef-cookbooks/chef-client#cron) recipe.
 
 ## Resources
