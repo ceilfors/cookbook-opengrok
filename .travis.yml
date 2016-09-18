@@ -20,6 +20,7 @@ services: docker
 
 env:
   matrix:
+  - INSTANCE=helloworld-centos-7
   - INSTANCE=non-default-properties-centos-7
 
 before_script:
