@@ -39,7 +39,7 @@ and files. This resource will also install tomcat and enable it as a service for
 - `download_checksum`: The SHA-256 checksum of the opengrok binary
 - `tomcat_version`: The version of tomcat to be installed. Default: 8.0.36
 - `tomcat_tarball_uri`: The full path to download tomcat. Default: http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.36/bin/apache-tomcat-8.0.36.tar.gz
-- `install_path`: The full path to install opengrok. Default: /opt
+- `install_path`: The full path to install opengrok. With the default value, the installation will go to /opt/opengrok. Default: /opt
 - `home_path`: The full path to opengrok home directory. This will be the location where the src directory, data directory, and configuration.xml is found. Default: /var/opengrok
 - `version`: The version of opengrok to be installed. Currently only used for directory name generation.
 - `opengrok_user`: The system user who will manage opengrok files and service. Default: 'opengrok'
