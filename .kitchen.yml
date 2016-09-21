@@ -9,6 +9,7 @@ provisioner:
 
 platforms:
   - name: centos-7.2
+  - name: opensuse-13.2
 
 suites:
   - name: helloworld

@@ -8,7 +8,7 @@ version '0.1.0'
 issues_url 'https://github.com/ceilfors/cookbook-opengrok/issues'
 source_url 'https://github.com/ceilfors/cookbook-opengrok'
 
-%w(centos redhat).each do |os|
+%w(centos redhat suse opensuse).each do |os|
   supports os
 end
 

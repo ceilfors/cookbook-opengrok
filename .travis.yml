@@ -22,6 +22,8 @@ env:
   matrix:
   - INSTANCE=helloworld-centos-7
   - INSTANCE=non-default-properties-centos-7
+  - INSTANCE=helloworld-opensuse-132
+  - INSTANCE=non-default-properties-opensuse-132
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )

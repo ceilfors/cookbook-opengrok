@@ -54,7 +54,11 @@ action :install do
     owner opengrok_user
     group opengrok_group
     variables data_root: ::File.join(home_path, 'data'),
-              src_root: ::File.join(home_path, 'src')
+              src_root: ::File.join(home_path, 'src'),
+              ctags: value_for_platform_family(
+                'suse' => '/usr/bin/ctags',
+                'default' => '/bin/ctags'
+              )
     notifies :create, template: context_xml_path
     notifies :restart, tomcat_service: 'opengrok'
   end
