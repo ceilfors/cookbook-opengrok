@@ -36,9 +36,9 @@ action :update do
   end
 
   # TODO: Log rotate
-  execute 'index_opengrok' do
+  bash 'index_opengrok' do
     user opengrok_user
     cwd home_path
-    command "#{indexer_path} >> #{::File.join(home_path, 'log', 'index.log')} 2>&1"
+    code "set -o pipefail; #{indexer_path} 2>&1 | tee --append #{::File.join(home_path, 'log', 'index.log')}"
   end
 end
