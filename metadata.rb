@@ -14,3 +14,5 @@ end
 
 depends 'ark', '~> 1.2.0'
 depends 'tomcat', '~> 2.3.1'
+
+chef_version '>= 12.5'

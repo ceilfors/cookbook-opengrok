@@ -13,7 +13,7 @@ A chef library cookbook that provides resources for installing and indexing Open
 
 ### Chef
 
-- Chef 12.1+
+- Chef 12.5+
 
 ## Usage
 
