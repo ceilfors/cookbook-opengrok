@@ -60,7 +60,7 @@ action :install do
     variables data_root: ::File.join(home_path, 'data'),
               src_root: ::File.join(home_path, 'src'),
               ctags: value_for_platform_family(
-                ['suse', 'debian'] => '/usr/bin/ctags',
+                %w(suse debian) => '/usr/bin/ctags',
                 'default' => '/bin/ctags'
               )
     notifies :create, template: context_xml_path
