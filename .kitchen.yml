@@ -1,8 +1,6 @@
 ---
 driver:
   name: vagrant
-  network:
-  - ['private_network', {type: 'dhcp'}]
 
 provisioner:
   name: chef_zero
