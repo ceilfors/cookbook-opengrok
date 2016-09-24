@@ -26,6 +26,8 @@ env:
   - INSTANCE=non-default-properties-opensuse-132
   - INSTANCE=helloworld-opensuse-421
   - INSTANCE=non-default-properties-opensuse-421
+  - INSTANCE=helloworld-ubuntu-1604
+  - INSTANCE=non-default-properties-ubuntu-1604
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )

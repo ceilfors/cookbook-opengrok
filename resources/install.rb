@@ -11,7 +11,11 @@ property :opengrok_group, String, default: 'opengrok'
 default_action :install
 
 action :install do
-  package 'ctags' do
+  ctags_package_name = value_for_platform_family(
+    'debian' => 'exuberant-ctags',
+    'default' => 'ctags'
+  )
+  package ctags_package_name do
     action :install
   end
 
@@ -56,7 +60,7 @@ action :install do
     variables data_root: ::File.join(home_path, 'data'),
               src_root: ::File.join(home_path, 'src'),
               ctags: value_for_platform_family(
-                'suse' => '/usr/bin/ctags',
+                ['suse', 'debian'] => '/usr/bin/ctags',
                 'default' => '/bin/ctags'
               )
     notifies :create, template: context_xml_path

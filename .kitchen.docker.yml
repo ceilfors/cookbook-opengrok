@@ -36,6 +36,13 @@ platforms:
     intermediate_instructions:
       - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which hostname
 
+- name: ubuntu-16.04
+  driver:
+    image: ubuntu:16.04
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+
 suites:
   - name: helloworld
     run_list:
