@@ -22,6 +22,14 @@ platforms:
     intermediate_instructions:
       - RUN yum -y install lsof which systemd-sysv initscripts
 
+- name: debian-8
+  driver:
+    image: debian:8
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install lsb-release net-tools -y
+
 - name: opensuse-13.2
   driver:
     image: opensuse:13.2
@@ -42,7 +50,7 @@ platforms:
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install net-tools
+      - RUN /usr/bin/apt-get install net-tools -y
 
 suites:
   - name: helloworld
