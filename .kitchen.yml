@@ -7,6 +7,7 @@ provisioner:
 
 platforms:
   - name: centos-7.2
+  - name: debian-7.11
   - name: debian-8.5
   - name: opensuse-13.2
   - name: opensuse-leap-42.1
