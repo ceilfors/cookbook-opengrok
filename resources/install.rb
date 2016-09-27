@@ -88,12 +88,34 @@ action :install do
 
   copy_source = ::File.join(install_path, 'opengrok', 'lib', 'source.war')
   # TODO: Tomcat symlink is hardcoded in tomcat cookbook, remove when chef-cookbooks/tomcat#269
-  copy_target = ::File.join('/opt/tomcat_opengrok', 'webapps')
+  webapps_dir = ::File.join('/opt/tomcat_opengrok', 'webapps')
+  webapp_dir = ::File.join(webapps_dir, 'source')
+
+  directory webapp_dir do
+    owner opengrok_user
+    group opengrok_group
+  end
 
   execute 'deploy_opengrok_war' do
-    command "cp -p #{copy_source} #{copy_target}"
+    command "cp -p #{copy_source} #{webapps_dir}"
     action :nothing
-    notifies :restart, tomcat_service: 'opengrok'
+    notifies :stop, 'tomcat_service[opengrok]', :before
+    notifies :run, 'execute[delete_webapp]', :before
+    notifies :run, 'execute[extract_war]', :immediately
+    notifies :start, 'tomcat_service[opengrok]', :delayed
+  end
+
+  execute 'delete_webapp' do
+    command "rm -rf #{::File.join(webapp_dir, '*')}"
+    action :nothing
+  end
+
+  execute 'extract_war' do
+    command "jar xf #{::File.join(webapps_dir, 'source.war')}"
+    cwd webapp_dir
+    user opengrok_user
+    group opengrok_group
+    action :nothing
   end
 
   tomcat_service 'opengrok' do
