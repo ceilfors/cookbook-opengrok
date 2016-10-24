@@ -1,4 +1,5 @@
 include_recipe 'java'
+include_recipe 'daun'
 package 'git'
 
 home_path = '/var/opengrok/'
@@ -10,9 +11,10 @@ opengrok_install 'opengrok' do
   version '0.12.1.5'
 end
 
-git "#{home_path}/src/gq" do
+# Checkout daun repository so that git branches and tags are indexed too.
+# See daun project for more details: https://github.com/ceilfors/daun
+daun "#{home_path}/src/gq" do
   repository 'https://github.com/ceilfors/gq.git'
-  revision 'master'
 end
 
 git "#{home_path}/src/daun" do

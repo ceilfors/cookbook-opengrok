@@ -7,3 +7,4 @@ version          '0.1.0'
 
 depends          'opengrok'
 depends          'java', '~> 1.41.0'
+depends          'daun', '~> 0.1.0'
