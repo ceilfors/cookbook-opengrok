@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe 'opengrok_test::helloworld' do
+describe 'opengrok_test::chefspec' do
   context 'When all attributes are default, on centos' do
     cached(:chef_run) do
       runner = ChefSpec::ServerRunner.new(platform: 'centos', version: '7.2.1511',
@@ -20,10 +20,6 @@ describe 'opengrok_test::helloworld' do
 
     it 'installs ctags' do
       expect(chef_run).to install_package('ctags')
-    end
-
-    it 'should include java recipe' do
-      expect(chef_run).to include_recipe('java')
     end
 
     it 'should create opengrok user' do
