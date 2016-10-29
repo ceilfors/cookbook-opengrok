@@ -9,7 +9,9 @@ A chef library cookbook that provides resources for installing and indexing Open
 
 ### Platforms
 
+- Debian / Ubuntu derivatives
 - RHEL and derivatives
+- openSUSE / SUSE Linux Enterprises
 
 ### Chef
 
